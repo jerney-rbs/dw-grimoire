@@ -32,15 +32,10 @@ fun infoLoggers(): Array = do {
       })
     filter !isEmpty($.loggerNames)
   }
-
-fun formatResult(result) =
-  result mapObject {($$): $ distinctBy $ orderBy $}
-
-var result = {
-  variableNames         : variables(),
-  flowNames             : flowNames(),
-  infoLoggers           : infoLoggers(),
-  scattersWithNoTimeout : scatters()
-}
 ---
-formatResult(result)
+{
+  variableNames         : variables()   distinctBy $ orderBy $,
+  flowNames             : flowNames()   distinctBy $ orderBy $,
+  infoLoggers           : infoLoggers() distinctBy $ orderBy $.flowName,
+  scattersWithNoTimeout : scatters()    distinctBy $ orderBy $.flowName
+}
